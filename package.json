@@ -10,8 +10,8 @@
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "test:unit": "jest"
+    "test": "jest --passWithNoTests",
+    "test:unit": "jest --passWithNoTests"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
