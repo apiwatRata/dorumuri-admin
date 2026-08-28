@@ -1,5 +1,5 @@
-import { login } from '../src/controllers/authController';
-import userService from '../src/services/userService';
+import { login } from './src/controllers/authController';
+import userService from './src/services/userService';
 
 jest.mock('../src/factory/userFactory');
 
@@ -14,12 +14,13 @@ describe('Authentication Unit Test', () => {
     
     userService.findByUsername.mockResolvedValue(mockUser);
 
-    const result = await login('john', 'secretpassword');12
+    const result = await login('john', 'secretpassword');
 
     expect(result.success).toBe(true);
     expect(result.token).toBe('mock-jwt-token');
     expect(userService.findByUsername).toHaveBeenCalledWith('john');
   });
+
 
   it('should return failure when password is incorrect', async () => {
     const mockUser = { username: 'john', password: 'secretpassword' };
@@ -44,5 +45,11 @@ describe('Authentication Unit Test', () => {
     await expect(login('', 'secretpassword')).rejects.toThrow('Username and password are required');
     await expect(login('john', '')).rejects.toThrow('Username and password are required');
   });
+
+  // if('should return too many attempts when try to login over 5 times', async () =>{
+  //   const result = await login('john', 'password');
+  //   expect(result.success).toBe(false);
+  //   expect(result.message).toBe('Too many attempts.');
+  // })
   
 });
